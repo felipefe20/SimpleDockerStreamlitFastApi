@@ -13,7 +13,7 @@ app = FastAPI()
 
 # Load the trained model in Docker
 model = joblib.load('model.joblib')
-
+# new idaa 
 # Define FastAPI endpoints
 @app.get("/")
 async def read_root():
