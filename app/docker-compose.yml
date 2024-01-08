@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      context: backend/
+      target: pv
+    ports:
+      - "8001:8001"
+    volumes: 
+      - ./backend:/app
+    command: uvicorn main:app --reload --host 0.0.0.0 --port 8001
+    restart: always
+    networks:
+      - app 
+    container_name: backend
+
+  frontend:
+    build:
+      context: frontend/
+      target: pv
+    ports:
+      - "8501:8501"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+    restart: always
+    networks:
+      - app
+    container_name: frontend
+
+networks:
+  app:
+    driver: bridge
+
+
