@@ -1,9 +1,13 @@
-FROM python:3.11 as pv
+FROM python:3.11
+
+COPY requirements.txt app/requirements.txt
 WORKDIR /app
-COPY requirements.txt .
+
 RUN pip install -r requirements.txt
-COPY . .
+COPY . /app
+
 EXPOSE 8501
-CMD ["streamlit", "run",  "streamlit_app.py", "--server.port", "8501", "--server.address=0.0.0.0"]
 
+ENTRYPOINT ["streamlit","run"]
 
+CMD ["streamlit_app.py"]
